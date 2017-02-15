@@ -30,7 +30,6 @@ Options:
   --verbose, -v   Enable debug messages.
 ```
 
-
 ## Examples
 
 ```bash
@@ -56,6 +55,33 @@ $ org-commits -a GITHUB_ACCESS_TOKEN -o lodash -r lodash -p -t
 $ org-commits -a GITHUB_ACCESS_TOKEN -o lodash -r lodash -p -t v1.1.0
 ```
 
-## license
+## Debugging
+
+There are two ways to expose debugging information:
+
+* `-v`: Pass this argument when running to expose GitHub's API request information.
+* `DEBUG=org-commits`: Add the env var `DEBUG` before the `org-commits` command to expose additional debug information.
+
+## GitHub Labels
+
+When using the `--pulls` argument, `org-commits` will automatically group Pull Requests by label. If none exist, the default `Misc` group will be used.
+
+```bash
+## fluxible:
+
+### Greenkeeper
+- [#475] jsdom@9.5.0 untested ⚠️ (@greenkeeperio-bot)
+- [#506] Update eslint-plugin-babel to version 4.0.0 🚀 (@greenkeeperio-bot)
+- [#489] Update es6-promise to version 4.0.2 🚀 (@greenkeeperio-bot)
+- [#490] Update babel-eslint to version 7.0.0 🚀 (@greenkeeperio-bot)
+- [#469] Update yargs to version 5.0.0 🚀 (@greenkeeperio-bot)
+- [#501] Update yargs to version 6.1.1 🚀 (@greenkeeperio-bot)
+
+### Misc
+- [#512] typo fix (@MaxKramnik)
+- [#498] fluxible-router@1.0.0-alpha.6 (@knutties)
+```
+
+## License
 
 MIT. See the [LICENSE](https://github.com/redonkulus/org-commits/blob/master/LICENSE.md) file for license text and copyright information.
