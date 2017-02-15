@@ -1,6 +1,6 @@
 {
   "name": "org-commits",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0",
   "description": "Display GitHub commit messages across repositories of an organization.",
   "main": "bin/org-commits.js",
   "bin": "bin/org-commits.js",
