@@ -8,7 +8,7 @@ function GitHubAPI() {};
 GitHubAPI.prototype = {
     authenticate: function() {},
     repos: {
-        getFromOrg: function(opts, callback) {
+        getForOrg: function(opts, callback) {
             callback(null, repos);
         },
         getCommits: function(opts, callback) {
