@@ -1,6 +1,6 @@
 # org-commits
 
-Display GitHub commit messages across repositories of an organization. This is typically useful for projects that span multiple repository of an organization and you would like to gather commits or pull requests across all of them.
+Display and collect GitHub commit messages or PR's across repositories of an organization. This is typically useful for projects that span multiple repository of an organization and would like to gather commits or pull requests across all of them.
 
 ## Install
 
@@ -10,7 +10,7 @@ npm install org-commits -g
 
 ## Usage
 
-You will need a GitHub Personal Access token to access the GitHub API. Go to your [Application Settings](https://github.com/settings/applications) and click the "Generate new token" button. Once created, you can pass it in via the `-a` flag or export to the `GITHUB_ACCESS_TOKEN` environment variable.
+You will need a GitHub Personal Access token to access the GitHub API. Go to your [Application Settings](https://github.com/settings/tokens) and click the "Generate new token" button (you typically only need `repo` scope). Once created, you can pass it in via the `-a` flag or export to the `GITHUB_ACCESS_TOKEN` environment variable.
 
 ```
 Display commit messages across all repositories for an organization.
@@ -21,7 +21,7 @@ Options:
   --duration, -d  Duration of past time to search (e.g. 1 day, 2 weeks, 5 months, etc).        [default: "1 week"]
   --filter, -f    Comma separated list of repos to ignore.                                     
   --help, -h      Usage docs.
-  --host,         GitHub host or export GITHUB_HOST env variable.                              [default: "github.com"]
+  --host,         GitHub host or export GITHUB_HOST env variable.                              [default: "api.github.com"]
   --pulls, -p     Displays pull request commits only, grouped by labels (if applicable).
   --org, -o       GitHub organization to retrieve repositories.
   --repo, -r      Specify a repository to query.

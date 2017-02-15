@@ -1,7 +1,7 @@
 {
   "name": "org-commits",
   "version": "1.0.0",
-  "description": "Display GitHub commit messages across repositories of an organization.",
+  "description": "Display and collect GitHub commit messages or PR's across repositories of an organization.",
   "main": "bin/org-commits.js",
   "bin": "bin/org-commits.js",
   "preferGlobal": true,
@@ -16,7 +16,8 @@
     "organization",
     "commits",
     "repositories",
-    "pull requests"
+    "pull requests",
+    "release notes"
   ],
   "scripts": {
     "dev": "babel lib -d dist -w",
