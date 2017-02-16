@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+
+* Migrate to `yargs` since `optimist` is deprecated.
+
 ## 1.1.0
 
 * Add `~/.orgcommitsrc` configuration support.
