@@ -7,150 +7,202 @@ var chaiAsPromised = require('chai-as-promised');
 var expect = chai.expect;
 var githubMock = require('./mocks/github');
 var mockery = require('mockery');
+var path = require('path');
 var OrgCommits;
 
 chai.use(chaiAsPromised);
 
 describe('OrgCommits', function () {
-    before(function () {
-        mockery.registerMock('github', githubMock);
-        mockery.enable({ useCleanCache: true, warnOnUnregistered: false });
-        OrgCommits = require('../lib/org-commits').OrgCommits;
+    describe('suite', function() {
+        before(function () {
+            mockery.registerMock('github', githubMock);
+            mockery.enable({ useCleanCache: true, warnOnUnregistered: false });
+            OrgCommits = require('../lib/org-commits').OrgCommits;
+        });
+
+        after(function () {
+            mockery.disable();
+            mockery.deregisterAll();
+        });
+
+        it('should return commits for a repo', function (done) {
+            var options = {
+                auth: 123,
+                duration: '1 week',
+                filter: 'bar',
+                org: 'org',
+                repo: 'foo'
+            };
+
+            var lib = new OrgCommits(options);
+            var expected = {
+                foo: [
+                    {
+                        commit: 'Merge pull request #155 from acme/foo. Add access logs (@redonkulus)'
+                    },
+                    {
+                        commit: 'Add access logs (@redonkulus)'
+                    }
+                ]
+            };
+
+            return expect(lib.run()).to.eventually.eql(expected).notify(done);
+        });
+
+        it('should return commits from all repos in an org', function (done) {
+            var options = {
+                auth: 123,
+                duration: '1 week',
+                org: 'org'
+            };
+
+            var lib = new OrgCommits(options);
+            var expected = {
+                foo: [
+                    {
+                        commit: 'Merge pull request #155 from acme/foo. Add access logs (@redonkulus)'
+                    },
+                    {
+                        commit: 'Add access logs (@redonkulus)'
+                    }
+                ],
+                bar: [
+                    {
+                        commit: 'Merge pull request #155 from acme/foo. Add access logs (@redonkulus)'
+                    },
+                    {
+                        commit: 'Add access logs (@redonkulus)'
+                    }
+                ]
+            };
+
+            return expect(lib.run()).to.eventually.eql(expected).notify(done);
+        });
+
+        it('should return commits from pull requests', function (done) {
+            var options = {
+                auth: 123,
+                duration: '10 years',
+                org: 'org',
+                pulls: true,
+                repo: 'foo'
+            };
+
+            var lib = new OrgCommits(options);
+            var expected = {
+                foo: [
+                    {
+                        'commit': '[#87] Fix order of rollup in dev (@johnsmith)',
+                        'labels': [
+                            'label1',
+                            'label2'
+                        ]
+                    }
+                ]
+            };
+
+            return expect(lib.run()).to.eventually.eql(expected).notify(done);
+        });
+
+        it('should return commits from given tag', function (done) {
+            var options = {
+                auth: 123,
+                duration: '10 years',
+                org: 'org',
+                pulls: true,
+                repo: 'foo',
+                tag: 'v0.1.0'
+            };
+
+            var lib = new OrgCommits(options);
+            var expected = {
+                foo: [
+                    {
+                        'commit': '[#87] Fix order of rollup in dev (@johnsmith)',
+                        'labels': [
+                            'label1',
+                            'label2'
+                        ]
+                    }
+                ]
+            };
+
+            return expect(lib.run()).to.eventually.eql(expected).notify(done);
+        });
+
+        it('should return commits from given tag', function (done) {
+            var options = {
+                auth: 123,
+                duration: '10 years',
+                org: 'org',
+                pulls: true,
+                repo: 'foo',
+                tag: true
+            };
+
+            var lib = new OrgCommits(options);
+            var expected = {
+                foo: [
+                    {
+                        'commit': '[#87] Fix order of rollup in dev (@johnsmith)',
+                        'labels': [
+                            'label1',
+                            'label2'
+                        ]
+                    }
+                ]
+            };
+
+            return expect(lib.run()).to.eventually.eql(expected).notify(done);
+        });
     });
 
-    after(function () {
-        mockery.disable();
-        mockery.deregisterAll();
-    });
+    describe('.orgcommitsrc', function () {
+        before(function () {
+            mockery.registerMock('github', githubMock);
+            mockery.enable({ useCleanCache: true, warnOnUnregistered: false });
 
-    it('should return commits for a repo', function (done) {
-        var options = {
-            auth: 123,
-            duration: '1 week',
-            filter: 'bar',
-            org: 'org',
-            repo: 'foo'
-        };
+            process.env.ORG_COMMITS_RC = path.join(__dirname, 'mocks', '.orgcommitsrc');
+            OrgCommits = require('../lib/org-commits').OrgCommits;
+        });
 
-        var lib = new OrgCommits(options);
-        var expected = {
-            foo: [
-                {
-                    commit: 'Merge pull request #155 from acme/foo. Add access logs (@redonkulus)'
-                },
-                {
-                    commit: 'Add access logs (@redonkulus)'
-                }
-            ]
-        };
+        it('should load correctly', function() {
+            var options = {
+                auth: 123,
+                duration: '1 week',
+                filter: 'bar',
+                host: 'foo.com',
+                org: 'org',
+                repo: 'foo'
+            };
+            var expected = Object.assign(options, {
+                "host": "api.foo.com",
+                "pathPrefix": "/api/v3"
+            });
 
-        return expect(lib.run()).to.eventually.eql(expected).notify(done);
-    });
+            var lib = new OrgCommits(options);
+            expect(lib.options).to.eql(expected);
+        });
 
-    it('should return commits from all repos in an org', function (done) {
-        var options = {
-            auth: 123,
-            duration: '1 week',
-            org: 'org'
-        };
+        it('should not load if --norc is set', function() {
+            var options = {
+                auth: 123,
+                duration: '1 week',
+                filter: 'bar',
+                host: 'foo.com',
+                norc: true,
+                org: 'org',
+                repo: 'foo'
+            };
 
-        var lib = new OrgCommits(options);
-        var expected = {
-            foo: [
-                {
-                    commit: 'Merge pull request #155 from acme/foo. Add access logs (@redonkulus)'
-                },
-                {
-                    commit: 'Add access logs (@redonkulus)'
-                }
-            ],
-            bar: [
-                {
-                    commit: 'Merge pull request #155 from acme/foo. Add access logs (@redonkulus)'
-                },
-                {
-                    commit: 'Add access logs (@redonkulus)'
-                }
-            ]
-        };
+            var lib = new OrgCommits(options);
+            expect(lib.options).to.eql(options);
+        });
 
-        return expect(lib.run()).to.eventually.eql(expected).notify(done);
-    });
-
-    it('should return commits from pull requests', function (done) {
-        var options = {
-            auth: 123,
-            duration: '10 years',
-            org: 'org',
-            pulls: true,
-            repo: 'foo'
-        };
-
-        var lib = new OrgCommits(options);
-        var expected = {
-            foo: [
-                {
-                    'commit': '[#87] Fix order of rollup in dev (@johnsmith)',
-                    'labels': [
-                        'label1',
-                        'label2'
-                    ]
-                }
-            ]
-        };
-
-        return expect(lib.run()).to.eventually.eql(expected).notify(done);
-    });
-
-    it('should return commits from given tag', function (done) {
-        var options = {
-            auth: 123,
-            duration: '10 years',
-            org: 'org',
-            pulls: true,
-            repo: 'foo',
-            tag: 'v0.1.0'
-        };
-
-        var lib = new OrgCommits(options);
-        var expected = {
-            foo: [
-                {
-                    'commit': '[#87] Fix order of rollup in dev (@johnsmith)',
-                    'labels': [
-                        'label1',
-                        'label2'
-                    ]
-                }
-            ]
-        };
-
-        return expect(lib.run()).to.eventually.eql(expected).notify(done);
-    });
-
-    it('should return commits from given tag', function (done) {
-        var options = {
-            auth: 123,
-            duration: '10 years',
-            org: 'org',
-            pulls: true,
-            repo: 'foo',
-            tag: true
-        };
-
-        var lib = new OrgCommits(options);
-        var expected = {
-            foo: [
-                {
-                    'commit': '[#87] Fix order of rollup in dev (@johnsmith)',
-                    'labels': [
-                        'label1',
-                        'label2'
-                    ]
-                }
-            ]
-        };
-
-        return expect(lib.run()).to.eventually.eql(expected).notify(done);
-    });
+        after(function () {
+            process.env.ORG_COMMITS_RC = undefined;
+            mockery.disable();
+            mockery.deregisterAll();
+        });
+    })
 });
