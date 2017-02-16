@@ -30,6 +30,7 @@ describe('OrgCommits', function () {
                 auth: 123,
                 duration: '1 week',
                 filter: 'bar',
+                norc: true,
                 org: 'org',
                 repo: 'foo'
             };
@@ -53,6 +54,7 @@ describe('OrgCommits', function () {
             var options = {
                 auth: 123,
                 duration: '1 week',
+                norc: true,
                 org: 'org'
             };
 
@@ -83,6 +85,7 @@ describe('OrgCommits', function () {
             var options = {
                 auth: 123,
                 duration: '10 years',
+                norc: true,
                 org: 'org',
                 pulls: true,
                 repo: 'foo'
@@ -109,6 +112,7 @@ describe('OrgCommits', function () {
                 auth: 123,
                 duration: '10 years',
                 org: 'org',
+                norc: true,
                 pulls: true,
                 repo: 'foo',
                 tag: 'v0.1.0'
@@ -134,6 +138,7 @@ describe('OrgCommits', function () {
             var options = {
                 auth: 123,
                 duration: '10 years',
+                norc: true,
                 org: 'org',
                 pulls: true,
                 repo: 'foo',
@@ -172,7 +177,7 @@ describe('OrgCommits', function () {
                 duration: '1 week',
                 filter: 'bar',
                 host: 'foo.com',
-                org: 'org',
+                org: 'foo',
                 repo: 'foo'
             };
             var expected = Object.assign(options, {

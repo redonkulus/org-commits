@@ -81,8 +81,8 @@ Additionally, for GitHub Enterprise users you may need to adjust the `host` and 
 
 There are two ways to expose debugging information:
 
-* `-v`: Pass this argument when running to expose GitHub's API request information.
-* `DEBUG=org-commits`: Add the env var `DEBUG` before the `org-commits` command to expose additional debug information.
+* `-v`: Pass this argument when running to expose GitHub's API request information and `DEBUG` logs.
+* `DEBUG=org-commits`: Add the env var `DEBUG` before the `org-commits` command to expose only the debug information.
 
 ## GitHub Labels
 
