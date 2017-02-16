@@ -17,17 +17,19 @@ Display commit messages across all repositories for an organization.
 Usage: org-commits
 
 Options:
-  --auth, -a      Github OAuth token or export GITHUB_ACCESS_TOKEN env variable with token.    [required]
-  --duration, -d  Duration of past time to search (e.g. 1 day, 2 weeks, 5 months, etc).        [default: "1 week"]
-  --filter, -f    Comma separated list of repos to ignore.                                     
-  --help, -h      Usage docs.
-  --host,         GitHub host or export GITHUB_HOST env variable.                              [default: "api.github.com"]
-  --pulls, -p     Displays pull request commits only, grouped by labels (if applicable).
-  --org, -o       GitHub organization to retrieve repositories.
-  --repo, -r      Specify a repository to query.
-  --sha, -s       Git sha or branch to pull data from (e.g. master, gh-pages, etc).            [default: "master"]
-  --tag, -t       Displays commits since a given tag, if no tag provided then after last tag.
-  --verbose, -v   Enable debug messages.
+  --auth, -a            Github OAuth token or export GITHUB_ACCESS_TOKEN env variable with token.        [required]
+  --duration, -d        Duration of past time to search (e.g. 1 day, 2 weeks, 5 months, etc).            [default: "1 week"]
+  --filter, -f          Comma separated list of repos to ignore.                                     
+  --help, -h            Usage docs.
+  --host,               GitHub host or export GITHUB_HOST env variable.                                  [default: "api.github.com"]
+  --norc                Disable parsing of the ~./orgcommitsrc config.
+  --pathPrefix, --path  Path prefix for GitHub API requests. Typically used for GitHub Enterprise users.
+  --pulls, -p           Displays pull request commits only, grouped by labels (if applicable).
+  --org, -o             GitHub organization to retrieve repositories.
+  --repo, -r            Specify a repository to query.
+  --sha, -s             Git sha or branch to pull data from (e.g. master, gh-pages, etc).                [default: "master"]
+  --tag, -t             Displays commits since a given tag, if no tag provided then after last tag.
+  --verbose, -v         Enable debug messages.
 ```
 
 ## Examples
@@ -53,6 +55,26 @@ $ org-commits -a GITHUB_ACCESS_TOKEN -o lodash -r lodash -p -t
 
 // display all pull requests since a given tag
 $ org-commits -a GITHUB_ACCESS_TOKEN -o lodash -r lodash -p -t v1.1.0
+```
+
+## Configuration
+
+For added convenience, you can create a `~/.orgcommitsrc` file to store frequently passed in options:
+
+```json
+{
+    "org": "lodash",
+    "repo": "lodash"
+}
+```
+
+Additionally, for GitHub Enterprise users you may need to adjust the `host` and `pathPrefix` settings to connect to your private GHE instance. For this, you can add the `host` and `pathPrefix` options too:
+
+```json
+{
+    "host": "api.example.com",
+    "pathPrefix": "/api/v3"
+}
 ```
 
 ## Debugging

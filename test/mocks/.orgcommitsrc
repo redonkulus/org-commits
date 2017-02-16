@@ -1,0 +1,5 @@
+{
+    "host": "api.foo.com",
+    "pathPrefix": "/api/v3",
+    "org": "foo"
+}
