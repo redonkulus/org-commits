@@ -25,7 +25,7 @@ describe('OrgCommits', function () {
             mockery.deregisterAll();
         });
 
-        it('should return commits for a repo', function (done) {
+        it('should return commits for a repo', function () {
             var options = {
                 auth: 123,
                 duration: '1 week',
@@ -46,10 +46,10 @@ describe('OrgCommits', function () {
                 ]
             };
 
-            return expect(lib.run()).to.eventually.eql(expected).notify(done);
+            return expect(lib.run()).to.eventually.eql(expected);
         });
 
-        it('should return commits from all repos in an org', function (done) {
+        it('should return commits from all repos in an org', function () {
             var options = {
                 auth: 123,
                 duration: '1 week',
@@ -76,10 +76,10 @@ describe('OrgCommits', function () {
                 ]
             };
 
-            return expect(lib.run()).to.eventually.eql(expected).notify(done);
+            return expect(lib.run()).to.eventually.eql(expected);
         });
 
-        it('should return commits from pull requests', function (done) {
+        it('should return commits from pull requests', function () {
             var options = {
                 auth: 123,
                 duration: '10 years',
@@ -101,10 +101,10 @@ describe('OrgCommits', function () {
                 ]
             };
 
-            return expect(lib.run()).to.eventually.eql(expected).notify(done);
+            return expect(lib.run()).to.eventually.eql(expected);
         });
 
-        it('should return commits from given tag', function (done) {
+        it('should return commits from given tag', function () {
             var options = {
                 auth: 123,
                 duration: '10 years',
@@ -127,10 +127,10 @@ describe('OrgCommits', function () {
                 ]
             };
 
-            return expect(lib.run()).to.eventually.eql(expected).notify(done);
+            return expect(lib.run()).to.eventually.eql(expected);
         });
 
-        it('should return commits from given tag', function (done) {
+        it('should return commits from given tag', function () {
             var options = {
                 auth: 123,
                 duration: '10 years',
@@ -153,7 +153,7 @@ describe('OrgCommits', function () {
                 ]
             };
 
-            return expect(lib.run()).to.eventually.eql(expected).notify(done);
+            return expect(lib.run()).to.eventually.eql(expected);
         });
     });
 
