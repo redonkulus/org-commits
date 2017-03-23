@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1
+
+* `console.log` repo commit errors instead of silently rejecting them.
+
 ## 1.2.0
 
 * Migrate to `yargs` since `optimist` is deprecated.
