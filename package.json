@@ -1,6 +1,6 @@
 {
   "name": "org-commits",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Display and collect GitHub commit messages or PR's across repositories of an organization.",
   "main": "dist/org-commits.js",
   "bin": "bin/org-commits.js",
