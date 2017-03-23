@@ -4,14 +4,14 @@ require('babel-polyfill');
 var OrgCommits = require('../dist/org-commits').OrgCommits;
 
 // setup cli params and config
-var optimist = require('yargs');
-var argv = optimist
+var yargs = require('yargs');
+var argv = yargs
     .usage('Display commit messages across all repositories for an organization.\nUsage: $0')
     .options(require('../dist/options'))
     .argv;
 
 if (argv.help) {
-    optimist.showHelp();
+    yargs.showHelp();
     process.exit();
 }
 
