@@ -33,7 +33,7 @@
     "moment": "^2.10.0",
     "os-homedir": "^1.0.2",
     "semver": "^5.0.1",
-    "yargs": "^6.6.0"
+    "yargs": "^7.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.4.5",

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.3
+
+* Upgrade to `yargs@7.x`
+
 ## 1.2.2
 
 * Make `auth` a required option.
