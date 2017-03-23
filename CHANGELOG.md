@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.2
+
+* Make `auth` a required option.
+
 ## 1.2.1
 
 * `console.log` repo commit errors instead of silently rejecting them.
