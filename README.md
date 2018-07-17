@@ -22,12 +22,12 @@ Options:
   --filter, -f          Comma separated list of repos to ignore.                                     
   --help, -h            Usage docs.
   --host,               GitHub host or export GITHUB_HOST env variable.                                  [default: "api.github.com"]
-  --repoType            Repo type: all, public, private, forks, sources, member (public is default)
   --norc                Disable parsing of the ~./orgcommitsrc config.
   --pathPrefix, --path  Path prefix for GitHub API requests. Typically used for GitHub Enterprise users.
   --pulls, -p           Displays pull request commits only, grouped by labels (if applicable).
   --org, -o             GitHub organization to retrieve repositories.
   --repo, -r            Specify a repository to query.
+  --repoType            Repo type: all, public, private, forks, sources, member (public is default)
   --sha, -s             Git sha or branch to pull data from (e.g. master, gh-pages, etc).                [default: "master"]
   --tag, -t             Displays commits since a given tag, if no tag provided then after last tag.
   --verbose, -v         Enable debug messages.
