@@ -22,6 +22,7 @@ Options:
   --filter, -f          Comma separated list of repos to ignore.                                     
   --help, -h            Usage docs.
   --host,               GitHub host or export GITHUB_HOST env variable.                                  [default: "api.github.com"]
+  --repoType            Repo type: all, public, private, forks, sources, member (public is default)
   --norc                Disable parsing of the ~./orgcommitsrc config.
   --pathPrefix, --path  Path prefix for GitHub API requests. Typically used for GitHub Enterprise users.
   --pulls, -p           Displays pull request commits only, grouped by labels (if applicable).
